@@ -30,7 +30,7 @@ export class DomainsViewer extends Component {
         <li key={'add-new'} onClick={() => alert('Add new site')}>
           <div>
             <div>
-              <img src={'cross.png'} alt={'Plus image'} />
+              <img src={'cross.png'} alt={'Plus sign'} />
             </div>
             <p>
               Create new site
