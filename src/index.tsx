@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {DomainsViewer} from './components/ui/DomainsViewer';
+import {App} from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DomainsViewer />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

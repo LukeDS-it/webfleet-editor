@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Domain} from '../../types/Domain';
+import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
+import addWebsite from '../../../assets/add-website.png';
 
 export class DomainsViewer extends Component {
   state = new DomainsViewerState();
@@ -22,15 +23,18 @@ export class DomainsViewer extends Component {
 
   render() {
 
-    const domList = this.state.domains.map((dom) => this.domainTile(dom));
+    const domList = this.state.domains.map(this.domainTile);
+
     return <div className={'domain-screen'}>
-      Hello, Luca, welcome to Webfleet! These are your websites:
+      <p className={'welcome'}>
+        Welcome to Webfleet, Luca! Here are your websites:
+      </p>
       <ul className={'domain-list'}>
         {domList}
         <li key={'add-new'} onClick={() => alert('Add new site')}>
           <div>
             <div>
-              <img src={'cross.png'} alt={'Plus sign'} />
+              <img src={addWebsite} alt={'Plus sign'} />
             </div>
             <p>
               Create new site
