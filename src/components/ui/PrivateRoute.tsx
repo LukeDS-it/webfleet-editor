@@ -7,7 +7,7 @@ export default function PrivateRoute({component: Component, path, ...rest}: Priv
 
   useEffect(() => {
     const fn = async () => {
-      if (!authenticated) {
+      if (loading === false && !authenticated) {
         if (loginWithRedirect) {
           await loginWithRedirect({appState: {targetUrl: path}});
         }
@@ -16,7 +16,8 @@ export default function PrivateRoute({component: Component, path, ...rest}: Priv
     fn();
   }, [loading, authenticated, loginWithRedirect, path]);
 
-  const render = (props: RouteProps) => authenticated === true ? <Component {...props} /> : null;
+  const render = (props: RouteProps) => authenticated === true ? <Component {...props} /> :
+      <div> Loading... </div>;
 
   return <Route path={path} render={render} {...rest} />;
 }
