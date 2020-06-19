@@ -29,9 +29,6 @@ interface Auth0ProviderProps extends Auth0ClientOptions {
   initOptions?: Auth0ClientOptions;
 }
 
-const DEFAULT_REDIRECT_CALLBACK = (appState: any) =>
-    window.history.replaceState({}, document.title, window.location.pathname);
-
 export class Auth0Provider extends Component<Auth0ProviderProps, IState> {
 
   constructor(props: any) {
@@ -48,7 +45,6 @@ export class Auth0Provider extends Component<Auth0ProviderProps, IState> {
     this.initAuth0();
   }
 
-  // useEffect(() => {
   initAuth0 = async () => {
     const auth0Client = await createAuth0Client(this.props);
     this.setState({auth0Client});
