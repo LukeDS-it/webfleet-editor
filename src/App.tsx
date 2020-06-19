@@ -1,31 +1,23 @@
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import React from 'react';
+import {Route, Router, Switch} from 'react-router-dom';
 import {DomainsViewer} from './components/layout/domains-viewer/DomainsViewer';
 import {ExternalRedirect} from './components/ui/ExternalRedirect';
+import history from './utils/history';
+import PrivateRoute from './components/ui/PrivateRoute';
 
+const App = () => {
 
-export class App extends Component<any, AppState> {
+  return (
+      <Router history={history}>
+        <Switch>
+          <PrivateRoute path='/' exact component={DomainsViewer}/>
+          <Route path='/login' exact>
+            <ExternalRedirect url={'http://ldsoftware.it'}/>
+          </Route>
+        </Switch>
+      </Router>
+  );
 
-  constructor(params: any) {
-    super(params);
-    this.state = new AppState();
-  }
+};
 
-  render() {
-    return (
-        <Router>
-          <Switch>
-            <Route path='/' exact component={DomainsViewer}/>
-            <Route path='/login' exact>
-              <ExternalRedirect url={'http://ldsoftware.it'}/>
-            </Route>
-          </Switch>
-        </Router>
-    );
-  }
-
-}
-
-class AppState {
-
-}
+export default App;
