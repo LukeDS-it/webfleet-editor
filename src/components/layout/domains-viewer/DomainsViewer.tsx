@@ -1,12 +1,18 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
+import {useAuth0} from '../../../utils/react-auth0-wrapper';
 
-export class DomainsViewer extends Component {
-  state = new DomainsViewerState();
+export function DomainsViewer() {
+  const [state, setState] = useState<DomainsViewerState>(new DomainsViewerState());
+  const {loading, user} = useAuth0();
 
-  domainTile(domain: Domain) {
+  if (loading || !user) {
+    return <div>loading...</div>;
+  }
+
+  const domainTile = (domain: Domain) => {
     return (
         <li key={domain.id} onClick={() => alert(`Navigate to ${domain.id}`)}>
           <div>
@@ -19,31 +25,30 @@ export class DomainsViewer extends Component {
           </div>
         </li>
     );
-  }
+  };
 
-  render() {
+  const domList = state?.domains.map(domainTile);
 
-    const domList = this.state.domains.map(this.domainTile);
-
-    return <div className={'domain-screen'}>
-      <p className={'welcome'}>
-        Welcome to Webfleet, Luca! Here are your websites:
-      </p>
-      <ul className={'domain-list'}>
-        {domList}
-        <li key={'add-new'} onClick={() => alert('Add new site')}>
-          <div>
+  return (
+      <div className={'domain-screen'}>
+        <p className={'welcome'}>
+          Welcome to Webfleet, {user.name}! Here are your websites:
+        </p>
+        <ul className={'domain-list'}>
+          {domList}
+          <li key={'add-new'} onClick={() => alert('Add new site')}>
             <div>
-              <img src={addWebsite} alt={'Plus sign'} />
+              <div>
+                <img src={addWebsite} alt={'Plus sign'}/>
+              </div>
+              <p>
+                Create new site
+              </p>
             </div>
-            <p>
-              Create new site
-            </p>
-          </div>
-        </li>
-      </ul>
-    </div>;
-  }
+          </li>
+        </ul>
+      </div>
+  );
 }
 
 class DomainsViewerState {
