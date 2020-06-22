@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
@@ -6,7 +6,29 @@ import {useAuth0} from '../../../utils/react-auth0-wrapper';
 
 export function DomainsViewer() {
   const [state, setState] = useState<DomainsViewerState>(new DomainsViewerState());
-  const {loading, user} = useAuth0();
+  const {loading, user, getTokenSilently} = useAuth0();
+
+  const callApi = async () => {
+    if (getTokenSilently) {
+      const token = await getTokenSilently();
+
+      const response = await fetch('http://localhost:8080/api/v1/domains', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const responseData = await response.json() as Array<Domain>;
+
+      setState({
+        domains: responseData
+      })
+    }
+  }
+
+  useEffect(() => {
+    callApi();
+  })
 
   if (loading || !user) {
     return <div>loading...</div>;
