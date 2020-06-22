@@ -8,27 +8,28 @@ export function DomainsViewer() {
   const [state, setState] = useState<DomainsViewerState>(new DomainsViewerState());
   const {loading, user, getTokenSilently} = useAuth0();
 
-  const callApi = async () => {
-    if (getTokenSilently) {
-      const token = await getTokenSilently();
 
-      const response = await fetch('http://localhost:8080/api/v1/domains', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      const responseData = await response.json() as Array<Domain>;
-
-      setState({
-        domains: responseData
-      })
-    }
-  }
 
   useEffect(() => {
+    const callApi = async () => {
+      if (getTokenSilently) {
+        const token = await getTokenSilently();
+
+        const response = await fetch('http://localhost:8080/api/v1/domains', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const responseData = await response.json() as Array<Domain>;
+
+        setState({
+          domains: responseData
+        })
+      }
+    }
     callApi();
-  })
+  }, [])
 
   if (loading || !user) {
     return <div>loading...</div>;
