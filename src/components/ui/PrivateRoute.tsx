@@ -7,20 +7,18 @@ interface PrivateRouteProps extends RouteProps {
 }
 
 export default function PrivateRoute({
-                                       component: Component,
-                                       path,
-                                       ...rest
-                                     }: PrivateRouteProps) {
+  component: Component,
+  path,
+  ...rest
+}: PrivateRouteProps) {
   const {loading, isAuthenticated, loginWithRedirect} = useAuth0();
 
   useEffect(() => {
     const fn = async () => {
       if (loading === false && !isAuthenticated) {
-        if (loginWithRedirect) {
-          await loginWithRedirect({
-            appState: {targetUrl: path}
-          });
-        }
+        await loginWithRedirect({
+          appState: {targetUrl: path}
+        });
       }
     };
     fn();

@@ -36,7 +36,7 @@ services:
       - AUTH_DOMAIN=https://ldsoftware.eu.auth0.com
       - AUTH_AUDIENCE=https://dev-env.webfleet.com
       - AUTH_ISSUER=https://ldsoftware.eu.auth0.com/
-      - KAFKA_BROKERS=http://kafka:9092
+      - KAFKA_BROKERS=kafka:9092
       - DOMAINS_TOPIC=webfleet-domains
     depends_on:
       - pgsql

@@ -5,6 +5,7 @@ declare namespace NodeJS {
     REACT_APP_AUTH0_DOMAIN: string
     REACT_APP_AUTH0_CLIENT_ID: string
     REACT_APP_AUTH0_AUDIENCE: string
+    REACT_APP_WEBFLEET_DOMAINS_URL: string
   }
 
 }
