@@ -1,13 +1,13 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {PropsWithChildren, useCallback, useEffect} from 'react';
 import './Modal.scss';
 
 export function Modal(props: ModalProps) {
 
-  const className = props.open ? 'modal open' : 'modal';
+  const className = props.open ? 'overlay open' : 'overlay';
   
   const handleEscape = useCallback((event) => {
     if (event.keyCode === 27) {
-      props.closeModalHook();
+      props.onClose();
     }
   }, [props]);
 
@@ -20,14 +20,14 @@ export function Modal(props: ModalProps) {
   })
 
   return (
-      <div className={className} onClick={props.closeModalHook}>
-        <div className={'modal-content'}>
+      <div className={className} onClick={props.onClose}>
+        <div className={'modal'}>
           <div className={'modal-header'}>
-            <span>{props.title}</span>
-            <span onClick={props.closeModalHook}>&times;</span>
+            <h2>{props.title}</h2>
+            <span className={'closeButton'} onClick={props.onClose}>&times;</span>
           </div>
-          <div>
-            Hello world :)
+          <div className={'modal-content'}>
+            {props.children}
           </div>
         </div>
       </div>
@@ -35,8 +35,8 @@ export function Modal(props: ModalProps) {
 
 }
 
-interface ModalProps {
+interface ModalProps extends PropsWithChildren<any> {
   title: string
   open: boolean
-  closeModalHook: () => void
+  onClose: () => void
 }

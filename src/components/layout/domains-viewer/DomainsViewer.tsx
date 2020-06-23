@@ -41,7 +41,9 @@ export function DomainsViewer() {
 
   return (
       <div className={'domain-screen'}>
-        <Modal title={'Create new domain'} open={modalOpen} closeModalHook={() => setModalOpen(false)}/>
+        <Modal title={'Create new domain'} open={modalOpen} onClose={() => setModalOpen(false)}>
+          Modal content!!
+        </Modal>
         <p className={'welcome'}>
           Welcome to Webfleet, {user.name}! Here are your websites:
         </p>
