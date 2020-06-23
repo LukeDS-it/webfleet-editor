@@ -35,8 +35,8 @@ export function Modal(props: ModalProps) {
     }
   }
 
-  const submit = (props.onSubmit) ? <button className={'submit'} onClick={handleSubmit}>Submit</button> : '';
-  const cancel = (props.onCancel) ? <button className={'cancel'} onClick={handleCancel}>Cancel</button> : '';
+  const submit = (props.onSubmit) ? <button className={'submit'} onClick={handleSubmit}>{props.submitText ? props.submitText : 'Submit'}</button> : '';
+  const cancel = (props.onCancel) ? <button className={'cancel'} onClick={handleCancel}>{props.cancelText ? props.cancelText : 'Cancel'}</button> : '';
   const footer = (props.onSubmit || props.onCancel) ? <div className={'modal-footer'}>{submit}{cancel}</div> : ''
 
   return (
@@ -62,4 +62,6 @@ interface ModalProps extends PropsWithChildren<any> {
   onClose: () => void
   onSubmit?: () => void
   onCancel?: () => void
+  submitText?: string
+  cancelText?: string
 }

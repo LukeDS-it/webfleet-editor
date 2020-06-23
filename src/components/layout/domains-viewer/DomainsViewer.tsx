@@ -45,6 +45,7 @@ export function DomainsViewer() {
                open={modalOpen}
                onClose={() => setModalOpen(false)}
                onSubmit={() => alert('Clicked submit')}
+               submitText={'Create domain'}
                onCancel={() => alert('Clicked cancel')}
         >
           Modal content!!
