@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
 import {useAuth0} from '../../../utils/react-auth0-wrapper';
 import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from '../../ui/DomainTile';
-import {User} from 'auth0';
+import {Modal} from '../../ui/modal/Modal';
 
 export function DomainsViewer() {
   const {loading, user, getTokenSilently} = useAuth0();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const getDomains = async () => {
     const token = await getTokenSilently();
@@ -40,6 +41,7 @@ export function DomainsViewer() {
 
   return (
       <div className={'domain-screen'}>
+        <Modal title={'Create new domain'} open={modalOpen} closeModalHook={() => setModalOpen(false)}/>
         <p className={'welcome'}>
           Welcome to Webfleet, {user.name}! Here are your websites:
         </p>
@@ -48,7 +50,7 @@ export function DomainsViewer() {
           <DomainTile key={'add-new'}
                       icon={addWebsite}
                       title={'Create new site'}
-                      onClick={() => alert('Add new site')}
+                      onClick={() => setModalOpen(true)}
           />
         </ul>
       </div>
