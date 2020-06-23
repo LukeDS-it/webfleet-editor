@@ -41,7 +41,12 @@ export function DomainsViewer() {
 
   return (
       <div className={'domain-screen'}>
-        <Modal title={'Create new domain'} open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Modal title={'Create new domain'}
+               open={modalOpen}
+               onClose={() => setModalOpen(false)}
+               onSubmit={() => alert('Clicked submit')}
+               onCancel={() => alert('Clicked cancel')}
+        >
           Modal content!!
         </Modal>
         <p className={'welcome'}>
