@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
 import {useAuth0} from '../../../utils/react-auth0-wrapper';
 import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from '../../ui/DomainTile';
-import {User} from 'auth0';
+import {DomainsModal} from '../domains-modal/DomainsModal';
+import {FormMode} from '../../../types/FormMode';
 
 export function DomainsViewer() {
   const {loading, user, getTokenSilently} = useAuth0();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<FormMode>('create');
 
   const getDomains = async () => {
     const token = await getTokenSilently();
@@ -36,10 +39,12 @@ export function DomainsViewer() {
   }
 
   const domainTiles = data
-  .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title} onClick={() => navigateTo(d.id)}/>);
+  .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title}
+                        onClick={() => navigateTo(d.id)}/>);
 
   return (
       <div className={'domain-screen'}>
+        <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
         <p className={'welcome'}>
           Welcome to Webfleet, {user.name}! Here are your websites:
         </p>
@@ -48,7 +53,10 @@ export function DomainsViewer() {
           <DomainTile key={'add-new'}
                       icon={addWebsite}
                       title={'Create new site'}
-                      onClick={() => alert('Add new site')}
+                      onClick={() => {
+                        setModalOpen(true);
+                        setModalType('create');
+                      }}
           />
         </ul>
       </div>
