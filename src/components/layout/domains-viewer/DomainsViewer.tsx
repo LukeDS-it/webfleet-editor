@@ -1,27 +1,21 @@
 import React, {useState} from 'react';
-import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
 import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from '../../ui/DomainTile';
 import {DomainsModal} from '../domains-modal/DomainsModal';
 import {FormMode} from '../../../types/FormMode';
+import {findAll} from "../../../api/domainsApi";
 
 export function DomainsViewer() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
 
-  const getDomains = async () => {
-    const response = await fetch(`${process.env.REACT_APP_WEBFLEET_DOMAINS_URL}api/v1/domains`, {});
-
-    return await response.json() as Array<Domain>;
-  };
-
   function navigateTo(id: string) {
     alert(`Navigate to ${id}`);
   }
 
-  const {data, error} = useSWR('/api/v1/domains', getDomains);
+  const {data, error} = useSWR('/api/v1/domains', findAll);
 
   if (!data) {
     return <div>loading...</div>;
