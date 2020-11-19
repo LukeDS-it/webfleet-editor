@@ -1,16 +1,20 @@
 import React from 'react';
-import {Route, Router, Switch} from 'react-router-dom';
+import {Router, Switch} from 'react-router-dom';
 import {DomainsViewer} from './components/layout/domains-viewer/DomainsViewer';
 import history from './utils/history';
+import {AuthProvider} from "./utils/Auth";
+import PrivateRoute from "./components/ui/PrivateRoute";
 
 const App = () => {
 
   return (
-      <Router history={history}>
-        <Switch>
-          <Route path='/' exact component={DomainsViewer}/>
-        </Switch>
-      </Router>
+      <AuthProvider>
+        <Router history={history}>
+          <Switch>
+            <PrivateRoute path='/' exact component={DomainsViewer}/>
+          </Switch>
+        </Router>
+      </AuthProvider>
   );
 
 };
