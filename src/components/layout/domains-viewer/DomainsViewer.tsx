@@ -2,24 +2,17 @@ import React, {useState} from 'react';
 import {Domain} from '../../../types/Domain';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
-import {useAuth0} from '../../../utils/react-auth0-wrapper';
 import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from '../../ui/DomainTile';
 import {DomainsModal} from '../domains-modal/DomainsModal';
 import {FormMode} from '../../../types/FormMode';
 
 export function DomainsViewer() {
-  const {loading, user, getTokenSilently} = useAuth0();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
 
   const getDomains = async () => {
-    const token = await getTokenSilently();
-    const response = await fetch(`${process.env.REACT_APP_WEBFLEET_DOMAINS_URL}api/v1/domains`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const response = await fetch(`${process.env.REACT_APP_WEBFLEET_DOMAINS_URL}api/v1/domains`, {});
 
     return await response.json() as Array<Domain>;
   };
@@ -30,7 +23,7 @@ export function DomainsViewer() {
 
   const {data, error} = useSWR('/api/v1/domains', getDomains);
 
-  if (loading || !user || !data) {
+  if (!data) {
     return <div>loading...</div>;
   }
 
@@ -46,7 +39,7 @@ export function DomainsViewer() {
       <div className={'domain-screen'}>
         <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
         <p className={'welcome'}>
-          Welcome to Webfleet, {user.name}! Here are your websites:
+          Welcome to Webfleet! Here are your websites:
         </p>
         <ul className={'domain-list'}>
           {domainTiles}
