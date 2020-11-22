@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
-import {DomainsViewer} from './components/layout/domains-viewer/DomainsViewer';
+import {DomainsViewer} from 'components/layout/domains-viewer/DomainsViewer';
 import history from './utils/history';
-import {AuthProvider} from "./utils/Auth";
-import PrivateRoute from "./components/ui/PrivateRoute";
-import {LoginView} from "./components/layout/login/LoginView";
+import {AuthProvider} from 'utils/Auth';
+import PrivateRoute from "components/ui/PrivateRoute";
+import {LoginView} from 'components/layout/login/LoginView';
 
 const App = () => {
 

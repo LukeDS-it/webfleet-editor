@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
 import './DomainsViewer.scss';
-import addWebsite from '../../../assets/add-website.png';
+import addWebsite from 'assets/add-website.png';
 import useSWR from 'swr/esm/use-swr';
-import {DomainTile} from '../../ui/DomainTile';
-import {DomainsModal} from '../domains-modal/DomainsModal';
-import {FormMode} from '../../../types/FormMode';
-import {findAll} from '../../../api/domainsApi';
-import {AuthContext} from '../../../utils/Auth';
+import {DomainTile} from 'components/ui/DomainTile';
+import {DomainsModal} from 'components/layout/domains-modal/DomainsModal';
+import {FormMode} from 'types/FormMode';
+import {findAll} from 'api/domainsApi';
+import {AuthContext} from 'utils/Auth';
 
 
 export function DomainsViewer() {

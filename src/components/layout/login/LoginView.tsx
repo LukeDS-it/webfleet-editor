@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import firebase from 'firebase';
-import {auth} from '../../../utils/firebase';
+import {auth} from 'utils/firebase';
 import {Redirect, useHistory} from 'react-router';
-import {AuthContext} from '../../../utils/Auth';
+import {AuthContext} from 'utils/Auth';
 import './LoginView.scss'
-import GLogo from '../../../assets/g-logo.png';
+import GLogo from 'assets/g-logo.png';
 
 export function LoginView() {
   const history = useHistory();

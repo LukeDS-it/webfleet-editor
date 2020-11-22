@@ -1,11 +1,11 @@
-import {Modal} from '../../ui/modal/Modal';
+import {Modal} from 'components/ui/modal/Modal';
 import React, {useState} from 'react';
-import {FormMode} from '../../../types/FormMode';
+import {FormMode} from 'types/FormMode';
 import {Field, Form, Formik} from 'formik';
-import {DomainForm} from '../../../types/DomainForm';
+import {DomainForm} from 'types/DomainForm';
 import './DomainsModal.scss';
-import {IconPicker} from '../../ui/icon-picker/IconPicker';
-import {bucketName} from '../../../utils/firebase';
+import {IconPicker} from 'components/ui/icon-picker/IconPicker';
+import {bucketName} from 'utils/firebase';
 
 export function DomainsModal(props: DomainsModalProps) {
 

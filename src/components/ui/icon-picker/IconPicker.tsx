@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import useSWR from 'swr/esm/use-swr';
 import './IconPicker.scss';
-import chooseIcon from '../../../assets/choose-icon.png';
+import chooseIcon from 'assets/choose-icon.png';
 
 export function IconPicker(props: IconPickerProps) {
 

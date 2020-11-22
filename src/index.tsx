@@ -2,16 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import history from './utils/history';
 import App from './App';
 
-const onRedirectCallback = (appState?: any) => {
-  history.push(
-      appState && appState.targetUrl
-          ? appState.targetUrl
-          : window.location.pathname
-  );
-};
+// const onRedirectCallback = (appState?: any) => {
+//   history.push(
+//       appState && appState.targetUrl
+//           ? appState.targetUrl
+//           : window.location.pathname
+//   );
+// };
 
 ReactDOM.render(
     <React.StrictMode>
