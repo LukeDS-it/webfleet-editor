@@ -5,11 +5,13 @@ import {Field, Form, Formik} from 'formik';
 import {DomainForm} from '../../../types/DomainForm';
 import './DomainsModal.scss';
 import {IconPicker} from '../../ui/icon-picker/IconPicker';
+import {bucketName} from '../../../utils/firebase';
 
 export function DomainsModal(props: DomainsModalProps) {
 
   const [rightVisible, setRightVisible] = useState<boolean>(true);
-  const iconsIndex = '/icons-index.json';
+  const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/' + bucketName + '/o/default-resources%2Ficons%2F{file}?alt=media'
+  const iconsIndex = baseUrl.replace('{file}', 'index.json');
 
   const handleOnSubmit = (values, actions) => {
     console.log({values, actions});
@@ -33,6 +35,7 @@ export function DomainsModal(props: DomainsModalProps) {
                   <IconPicker
                       onImageSelect={(img) => p.setFieldValue('image', img)}
                       imageIndex={iconsIndex}
+                      baseUrl={baseUrl}
                       onOpenPicker={() => setRightVisible(false)}
                       onClosePicker={() => setRightVisible(true)}
                   />

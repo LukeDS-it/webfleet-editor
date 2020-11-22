@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import './DomainsViewer.scss';
 import addWebsite from '../../../assets/add-website.png';
 import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from '../../ui/DomainTile';
 import {DomainsModal} from '../domains-modal/DomainsModal';
 import {FormMode} from '../../../types/FormMode';
-import {findAll} from "../../../api/domainsApi";
+import {findAll} from '../../../api/domainsApi';
+import {AuthContext} from '../../../utils/Auth';
+
 
 export function DomainsViewer() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
+  const {currentUser} = useContext(AuthContext);
 
   function navigateTo(id: string) {
     alert(`Navigate to ${id}`);
@@ -33,7 +36,7 @@ export function DomainsViewer() {
       <div className={'domain-screen'}>
         <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
         <p className={'welcome'}>
-          Welcome to Webfleet! Here are your websites:
+          Welcome to Webfleet {currentUser.displayName}! Here are your websites:
         </p>
         <ul className={'domain-list'}>
           {domainTiles}

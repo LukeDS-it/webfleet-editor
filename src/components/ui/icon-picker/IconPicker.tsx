@@ -55,7 +55,7 @@ export function IconPicker(props: IconPickerProps) {
 
   const sections = Object
   .entries(data.icons)
-  .map(([section, icons]) => makeSection(data.baseUrl, section, icons));
+  .map(([section, icons]) => makeSection(data.baseUrl ? data.baseUrl : props.baseUrl, section, icons));
 
   return (
       <div className='icon-picker'>
@@ -73,6 +73,7 @@ export function IconPicker(props: IconPickerProps) {
 interface IconPickerProps {
   onImageSelect: (string) => void
   imageIndex: string
+  baseUrl?: string
   defaultImage?: string
   onOpenPicker?: () => void
   onClosePicker?: () => void
