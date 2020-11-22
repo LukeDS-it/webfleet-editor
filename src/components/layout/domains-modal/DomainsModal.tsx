@@ -14,8 +14,7 @@ export function DomainsModal(props: DomainsModalProps) {
   const iconsIndex = baseUrl.replace('{file}', 'index.json');
 
   const handleOnSubmit = (values, actions) => {
-    console.log({values, actions});
-    alert(JSON.stringify(values, null, 2));
+    props.onSave(values);
     actions.setSubmitting(false);
     actions.resetForm(new DomainForm());
   };
@@ -33,7 +32,7 @@ export function DomainsModal(props: DomainsModalProps) {
           <Form>
             <div className='left'>
               <IconPicker
-                onImageSelect={(img) => p.setFieldValue('image', img)}
+                onImageSelect={(img) => p.setFieldValue('icon', img)}
                 imageIndex={iconsIndex}
                 baseUrl={baseUrl}
                 onOpenPicker={() => setRightVisible(false)}
@@ -75,4 +74,5 @@ interface DomainsModalProps {
   mode: FormMode
   modalOpen: boolean
   onClose: () => void
+  onSave: (form: DomainForm) => void
 }

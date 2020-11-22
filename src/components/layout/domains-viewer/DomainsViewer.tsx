@@ -5,9 +5,11 @@ import useSWR from 'swr/esm/use-swr';
 import {DomainTile} from 'components/ui/DomainTile';
 import {DomainsModal} from 'components/layout/domains-modal/DomainsModal';
 import {FormMode} from 'types/FormMode';
-import {findAll} from 'api/domainsApi';
+import {createDomain, findAll} from 'api/domainsApi';
 import {AuthContext} from 'utils/Auth';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
+import {DomainForm} from 'types/DomainForm';
+import {mutate} from 'swr';
 
 
 export function DomainsViewer() {
@@ -19,7 +21,16 @@ export function DomainsViewer() {
     alert(`Navigate to ${id}`);
   }
 
-  const {data, error} = useSWR('/api/v1/domains', findAll);
+  const {data, error} = useSWR('/domains', findAll);
+
+  const handleDomainCreation = async (domain: DomainForm) => {
+    try {
+      await createDomain(domain);
+      await mutate('/domains');
+    } catch (e) {
+      alert(e);
+    }
+  }
 
   if (!data) {
     return <LoadingScreen />;
@@ -35,7 +46,11 @@ export function DomainsViewer() {
 
   return (
     <div className={'domain-screen'}>
-      <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
+      <DomainsModal
+        modalOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSave={handleDomainCreation}
+        mode={modalType}/>
       <p className={'welcome'}>
         Welcome to Webfleet {currentUser.displayName}! Here are your websites:
       </p>
