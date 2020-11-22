@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import useSWR from 'swr/esm/use-swr';
 import './IconPicker.scss';
 import chooseIcon from 'assets/choose-icon.png';
+import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 
 export function IconPicker(props: IconPickerProps) {
 
@@ -30,7 +31,7 @@ export function IconPicker(props: IconPickerProps) {
   };
 
   if (!data) {
-    return <div>loading...</div>;
+    return <LoadingScreen />;
   }
 
   const makeSection = (baseUrl: string, section: string, icons: Array<string>) => {

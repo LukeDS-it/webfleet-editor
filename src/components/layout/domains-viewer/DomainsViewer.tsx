@@ -7,6 +7,7 @@ import {DomainsModal} from 'components/layout/domains-modal/DomainsModal';
 import {FormMode} from 'types/FormMode';
 import {findAll} from 'api/domainsApi';
 import {AuthContext} from 'utils/Auth';
+import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 
 
 export function DomainsViewer() {
@@ -21,7 +22,7 @@ export function DomainsViewer() {
   const {data, error} = useSWR('/api/v1/domains', findAll);
 
   if (!data) {
-    return <div>loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (error) {
