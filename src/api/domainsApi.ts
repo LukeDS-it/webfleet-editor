@@ -1,4 +1,17 @@
 import {Domain} from 'types/Domain';
+import {auth, firestore} from 'utils/firebase';
+import firebase from 'firebase';
+
+const domains = firestore.collection('domains');
 
 export const findAll =
-    () => new Promise<Array<Domain>>(resolve => resolve([new Domain('ldsoftware.it', 'LDSoftware', 'https://firebasestorage.googleapis.com/v0/b/webfleet-serverless.appspot.com/o/default-resources%2Ficons%2Ficons8-aircraft-100.png?alt=media')]))
+  () => domains
+      .where('creator', '==', auth.currentUser.email)
+      .get()
+      .then((snapshot) => snapshot.docs.map(toDomain))
+
+
+
+const toDomain = (documentData: firebase.firestore.QueryDocumentSnapshot) => {
+  return new Domain(documentData.id, documentData.get('title'), documentData.get('icon'))
+}

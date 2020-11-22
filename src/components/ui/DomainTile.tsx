@@ -2,16 +2,16 @@ import React from 'react';
 
 export function DomainTile(props: DomainTileProps) {
   return (
-      <li onClick={props.onClick}>
+    <li onClick={props.onClick}>
+      <div>
         <div>
-          <div>
-            <img src={props.icon} alt={`Domain ${props.title}`}/>
-          </div>
-          <p>
-            {props.title}
-          </p>
+          <img src={props.icon} alt={`Domain ${props.title}`}/>
         </div>
-      </li>
+        <p>
+          {props.title}
+        </p>
+      </div>
+    </li>
   );
 }
 

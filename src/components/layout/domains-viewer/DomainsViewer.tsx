@@ -29,26 +29,26 @@ export function DomainsViewer() {
   }
 
   const domainTiles = data
-  .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title}
-                        onClick={() => navigateTo(d.id)}/>);
+    .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title}
+                          onClick={() => navigateTo(d.id)}/>);
 
   return (
-      <div className={'domain-screen'}>
-        <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
-        <p className={'welcome'}>
-          Welcome to Webfleet {currentUser.displayName}! Here are your websites:
-        </p>
-        <ul className={'domain-list'}>
-          {domainTiles}
-          <DomainTile key={'add-new'}
-                      icon={addWebsite}
-                      title={'Create new site'}
-                      onClick={() => {
-                        setModalOpen(true);
-                        setModalType('create');
-                      }}
-          />
-        </ul>
-      </div>
+    <div className={'domain-screen'}>
+      <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
+      <p className={'welcome'}>
+        Welcome to Webfleet {currentUser.displayName}! Here are your websites:
+      </p>
+      <ul className={'domain-list'}>
+        {domainTiles}
+        <DomainTile key={'add-new'}
+                    icon={addWebsite}
+                    title={'Create new site'}
+                    onClick={() => {
+                      setModalOpen(true);
+                      setModalType('create');
+                    }}
+        />
+      </ul>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ export default function PrivateRoute({component: Component, path, ...rest}: Priv
   const {currentUser} = useContext(AuthContext);
 
   const render = (props: RouteProps) =>
-      !!currentUser ? <Component {...props} /> : <Redirect to={"/login"}/>
+    !!currentUser ? <Component {...props} /> : <Redirect to={'/login'}/>
 
   return <Route path={path} render={render} {...rest} />;
 }

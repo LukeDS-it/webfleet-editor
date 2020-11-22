@@ -54,19 +54,19 @@ export function IconPicker(props: IconPickerProps) {
   };
 
   const sections = Object
-  .entries(data.icons)
-  .map(([section, icons]) => makeSection(data.baseUrl ? data.baseUrl : props.baseUrl, section, icons));
+    .entries(data.icons)
+    .map(([section, icons]) => makeSection(data.baseUrl ? data.baseUrl : props.baseUrl, section, icons));
 
   return (
-      <div className='icon-picker'>
-        <div className='icon-preview' onClick={togglePicker}>
-          <img src={currImg} alt='Open or close the picker'/>
-          Choose an image
-        </div>
-        <div className={panelClass}>
-          {sections}
-        </div>
+    <div className='icon-picker'>
+      <div className='icon-preview' onClick={togglePicker}>
+        <img src={currImg} alt='Open or close the picker'/>
+        Choose an image
       </div>
+      <div className={panelClass}>
+        {sections}
+      </div>
+    </div>
   );
 }
 
