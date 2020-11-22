@@ -21,7 +21,7 @@ export function LoginView() {
 
   return currentUser
     ? <Redirect to={'/'}/>
-    : <div>
+    : <div className={'login-screen'}>
       <h1>Welcome to Webfleet!</h1>
       <p>
         Please choose how you want to register to our site and start creating
