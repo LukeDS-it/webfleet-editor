@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import useSWR from 'swr/esm/use-swr';
 import './IconPicker.scss';
-import chooseIcon from '../../../assets/choose-icon.png';
+import chooseIcon from 'assets/choose-icon.png';
+import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 
 export function IconPicker(props: IconPickerProps) {
 
@@ -30,7 +31,7 @@ export function IconPicker(props: IconPickerProps) {
   };
 
   if (!data) {
-    return <div>loading...</div>;
+    return <LoadingScreen />;
   }
 
   const makeSection = (baseUrl: string, section: string, icons: Array<string>) => {
@@ -54,25 +55,26 @@ export function IconPicker(props: IconPickerProps) {
   };
 
   const sections = Object
-  .entries(data.icons)
-  .map(([section, icons]) => makeSection(data.baseUrl, section, icons));
+    .entries(data.icons)
+    .map(([section, icons]) => makeSection(data.baseUrl ? data.baseUrl : props.baseUrl, section, icons));
 
   return (
-      <div className='icon-picker'>
-        <div className='icon-preview' onClick={togglePicker}>
-          <img src={currImg} alt='Open or close the picker'/>
-          Choose an image
-        </div>
-        <div className={panelClass}>
-          {sections}
-        </div>
+    <div className='icon-picker'>
+      <div className='icon-preview' onClick={togglePicker}>
+        <img src={currImg} alt='Open or close the picker'/>
+        Choose an image
       </div>
+      <div className={panelClass}>
+        {sections}
+      </div>
+    </div>
   );
 }
 
 interface IconPickerProps {
   onImageSelect: (string) => void
   imageIndex: string
+  baseUrl?: string
   defaultImage?: string
   onOpenPicker?: () => void
   onClosePicker?: () => void

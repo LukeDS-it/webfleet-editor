@@ -1,37 +1,39 @@
-import React, {useState} from 'react';
-import {Domain} from '../../../types/Domain';
+import React, {useContext, useState} from 'react';
 import './DomainsViewer.scss';
-import addWebsite from '../../../assets/add-website.png';
-import {useAuth0} from '../../../utils/react-auth0-wrapper';
+import addWebsite from 'assets/add-website.png';
 import useSWR from 'swr/esm/use-swr';
-import {DomainTile} from '../../ui/DomainTile';
-import {DomainsModal} from '../domains-modal/DomainsModal';
-import {FormMode} from '../../../types/FormMode';
+import {DomainTile} from 'components/ui/DomainTile';
+import {DomainsModal} from 'components/layout/domains-modal/DomainsModal';
+import {FormMode} from 'types/FormMode';
+import {createDomain, findAll} from 'api/domainsApi';
+import {AuthContext} from 'utils/Auth';
+import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
+import {DomainForm} from 'types/DomainForm';
+import {mutate} from 'swr';
+
 
 export function DomainsViewer() {
-  const {loading, user, getTokenSilently} = useAuth0();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
-
-  const getDomains = async () => {
-    const token = await getTokenSilently();
-    const response = await fetch(`${process.env.REACT_APP_WEBFLEET_DOMAINS_URL}api/v1/domains`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    return await response.json() as Array<Domain>;
-  };
+  const {currentUser} = useContext(AuthContext);
 
   function navigateTo(id: string) {
     alert(`Navigate to ${id}`);
   }
 
-  const {data, error} = useSWR('/api/v1/domains', getDomains);
+  const {data, error} = useSWR('/domains', findAll);
 
-  if (loading || !user || !data) {
-    return <div>loading...</div>;
+  const handleDomainCreation = async (domain: DomainForm) => {
+    try {
+      await createDomain(domain);
+      await mutate('/domains');
+    } catch (e) {
+      alert(e);
+    }
+  }
+
+  if (!data) {
+    return <LoadingScreen />;
   }
 
   if (error) {
@@ -39,26 +41,30 @@ export function DomainsViewer() {
   }
 
   const domainTiles = data
-  .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title}
-                        onClick={() => navigateTo(d.id)}/>);
+    .map(d => <DomainTile key={d.id} icon={d.icon} title={d.title}
+                          onClick={() => navigateTo(d.id)}/>);
 
   return (
-      <div className={'domain-screen'}>
-        <DomainsModal modalOpen={modalOpen} onClose={() => setModalOpen(false)} mode={modalType}/>
-        <p className={'welcome'}>
-          Welcome to Webfleet, {user.name}! Here are your websites:
-        </p>
-        <ul className={'domain-list'}>
-          {domainTiles}
-          <DomainTile key={'add-new'}
-                      icon={addWebsite}
-                      title={'Create new site'}
-                      onClick={() => {
-                        setModalOpen(true);
-                        setModalType('create');
-                      }}
-          />
-        </ul>
-      </div>
+    <div className={'domain-screen'}>
+      <DomainsModal
+        modalOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSave={handleDomainCreation}
+        mode={modalType}/>
+      <p className={'welcome'}>
+        Welcome to Webfleet {currentUser.displayName}! Here are your websites:
+      </p>
+      <ul className={'domain-list'}>
+        {domainTiles}
+        <DomainTile key={'add-new'}
+                    icon={addWebsite}
+                    title={'Create new site'}
+                    onClick={() => {
+                      setModalOpen(true);
+                      setModalType('create');
+                    }}
+        />
+      </ul>
+    </div>
   );
 }

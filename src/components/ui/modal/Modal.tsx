@@ -12,10 +12,10 @@ export function Modal(props: ModalProps) {
   }, [props]);
 
   useEffect(() => {
-    document.addEventListener("keydown", handleEscape, false);
+    document.addEventListener('keydown', handleEscape, false);
 
     return () => {
-      document.removeEventListener("keydown", handleEscape, false);
+      document.removeEventListener('keydown', handleEscape, false);
     }
   })
 
@@ -35,23 +35,26 @@ export function Modal(props: ModalProps) {
     }
   }
 
-  const submit = (props.onSubmit) ? <button type='submit' className={'submit'} onClick={handleSubmit}>{props.submitText ? props.submitText : 'Submit'}</button> : '';
-  const cancel = (props.onCancel) ? <button type='reset' className={'cancel'} onClick={handleCancel}>{props.cancelText ? props.cancelText : 'Cancel'}</button> : '';
-  const footer = (props.onSubmit || props.onCancel) ? <div className={'modal-footer'}>{submit}{cancel}</div> : ''
+  const submit = (props.onSubmit) ? <button type='submit' className={'submit'}
+                                            onClick={handleSubmit}>{props.submitText ? props.submitText : 'Submit'}</button> : '';
+  const cancel = (props.onCancel) ? <button type='reset' className={'cancel'}
+                                            onClick={handleCancel}>{props.cancelText ? props.cancelText : 'Cancel'}</button> : '';
+  const footer = (props.onSubmit || props.onCancel) ?
+    <div className={'modal-footer'}>{submit}{cancel}</div> : ''
 
   return (
-      <div className={className} onMouseDown={closeOverlay}>
-        <div className={'modal'}>
-          <div className={'modal-header'}>
-            <h2>{props.title}</h2>
-            <span className={'closeButton'} onClick={props.onClose}>&times;</span>
-          </div>
-          <div className={'modal-content'}>
-            {props.children}
-          </div>
-          {footer}
+    <div className={className} onMouseDown={closeOverlay}>
+      <div className={'modal'}>
+        <div className={'modal-header'}>
+          <h2>{props.title}</h2>
+          <span className={'closeButton'} onClick={props.onClose}>&times;</span>
         </div>
+        <div className={'modal-content'}>
+          {props.children}
+        </div>
+        {footer}
       </div>
+    </div>
   );
 
 }

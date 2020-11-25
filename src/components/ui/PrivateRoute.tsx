@@ -1,31 +1,16 @@
-import React, {useEffect} from 'react';
-import {Route, RouteProps} from 'react-router-dom';
-import {useAuth0} from '../../utils/react-auth0-wrapper';
+import React, {useContext} from 'react';
+import {Redirect, Route, RouteProps} from 'react-router-dom';
+import {AuthContext} from 'utils/Auth';
 
 interface PrivateRouteProps extends RouteProps {
   component: React.ComponentType;
 }
 
-export default function PrivateRoute({
-  component: Component,
-  path,
-  ...rest
-}: PrivateRouteProps) {
-  const {loading, isAuthenticated, loginWithRedirect} = useAuth0();
-
-  useEffect(() => {
-    const fn = async () => {
-      if (loading === false && !isAuthenticated) {
-        await loginWithRedirect({
-          appState: {targetUrl: path}
-        });
-      }
-    };
-    fn();
-  }, [loading, isAuthenticated, loginWithRedirect, path]);
+export default function PrivateRoute({component: Component, path, ...rest}: PrivateRouteProps) {
+  const {currentUser} = useContext(AuthContext);
 
   const render = (props: RouteProps) =>
-      isAuthenticated === true ? <Component {...props} /> : null;
+    !!currentUser ? <Component {...props} /> : <Redirect to={'/login'}/>
 
   return <Route path={path} render={render} {...rest} />;
 }
