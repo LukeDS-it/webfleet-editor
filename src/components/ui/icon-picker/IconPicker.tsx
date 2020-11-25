@@ -3,16 +3,27 @@ import useSWR from 'swr/esm/use-swr';
 import './IconPicker.scss';
 import chooseIcon from 'assets/choose-icon.png';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
+import {useField} from 'formik';
 
 export function IconPicker(props: IconPickerProps) {
 
-  const [currImg, setCurrImg] = useState<string>(chooseIcon);
+  const [, meta, helpers] = useField({name: props.fieldName, value: chooseIcon});
+
+  const {value} = meta;
+  const {setValue} = helpers;
+
   const [panelOpen, setPanelOpen] = useState<boolean>(false);
 
   const panelClass = panelOpen ? 'picker-panel open' : 'picker-panel closed';
 
   const getAllIcons = async () => {
     return fetch(props.imageIndex).then(r => r.json()).then(p => p as IconIndex);
+  };
+
+  const currImg = () => {
+    if (value)
+      return value;
+    return chooseIcon;
   };
 
   const {data} = useSWR(props.imageIndex, getAllIcons);
@@ -31,13 +42,13 @@ export function IconPicker(props: IconPickerProps) {
   };
 
   if (!data) {
-    return <LoadingScreen />;
+    return <LoadingScreen/>;
   }
 
   const makeSection = (baseUrl: string, section: string, icons: Array<string>) => {
     const imageClick = (url: string) => {
-      setCurrImg(url);
-      props.onImageSelect(url);
+      setValue(url);
+      console.log(value);
       togglePicker();
     };
 
@@ -61,7 +72,7 @@ export function IconPicker(props: IconPickerProps) {
   return (
     <div className='icon-picker'>
       <div className='icon-preview' onClick={togglePicker}>
-        <img src={currImg} alt='Open or close the picker'/>
+        <img src={currImg()} alt='Open or close the picker'/>
         Choose an image
       </div>
       <div className={panelClass}>
@@ -72,7 +83,7 @@ export function IconPicker(props: IconPickerProps) {
 }
 
 interface IconPickerProps {
-  onImageSelect: (string) => void
+  fieldName: string
   imageIndex: string
   baseUrl?: string
   defaultImage?: string
