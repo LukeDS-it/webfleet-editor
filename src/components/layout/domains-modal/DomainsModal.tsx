@@ -23,11 +23,15 @@ export function DomainsModal(props: DomainsModalProps) {
 
   const handleReset = (values: DomainForm, actions: FormikHelpers<DomainForm>) => {
     props.onClose();
-  }
+  };
 
   return (
-    <Formik onSubmit={handleOnSubmit} onReset={handleReset} initialValues={DomainForm.emptyForm()}>
-      {(p) => (
+    <Formik onSubmit={handleOnSubmit}
+            onReset={handleReset}
+            initialValues={DomainForm.emptyForm()}
+            validationSchema={DomainForm.ValidationSchema}
+    >
+      {({errors}) => (
         <Modal title={'Create a new site'} open={props.modalOpen} onClose={props.onClose}>
           <Form>
             <div className={'fields'}>
@@ -35,6 +39,7 @@ export function DomainsModal(props: DomainsModalProps) {
                 <IconPicker
                   fieldName={'icon'}
                   imageIndex={iconsIndex}
+                  hasErrors={!!errors.icon}
                   baseUrl={baseUrl}
                   onOpenPicker={() => setRightVisible(false)}
                   onClosePicker={() => setRightVisible(true)}
@@ -47,7 +52,11 @@ export function DomainsModal(props: DomainsModalProps) {
                       <label htmlFor='title'>
                         Choose the title of your website. You can change this later.
                       </label>
-                      <input type='text' {...field} placeholder='Your website name'/>
+                      <input type='text'
+                             placeholder='Your website name'
+                             className={(errors.title ? 'has-error' : '')}
+                             {...field}
+                      />
                       {meta.touched && meta.error && meta.error}
                     </div>
                   )}
@@ -59,7 +68,12 @@ export function DomainsModal(props: DomainsModalProps) {
                         Assign an unique id to your website. This cannot be changed, but nobody
                         else will see it.
                       </label>
-                      <input type='text' {...field} placeholder='your-website-id'/>
+                      <input
+                        type='text'
+                        className={(errors.title ? 'has-error' : '')}
+                        placeholder='your-website-id'
+                        {...field}
+                      />
                       {meta.touched && meta.error && meta.error}
                     </div>
                   )}
@@ -67,7 +81,8 @@ export function DomainsModal(props: DomainsModalProps) {
               </div>
             </div>
             <div className={'modal-footer'}>
-              <button type={'submit'} className={'submit'}>{props.mode === 'create' ? 'Create site' : 'Update site'}</button>
+              <button type={'submit'}
+                      className={'submit'}>{props.mode === 'create' ? 'Create site' : 'Update site'}</button>
               <button type={'reset'}>Cancel</button>
             </div>
           </Form>

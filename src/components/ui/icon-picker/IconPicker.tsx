@@ -72,7 +72,10 @@ export function IconPicker(props: IconPickerProps) {
   return (
     <div className='icon-picker'>
       <div className='icon-preview' onClick={togglePicker}>
-        <img src={currImg()} alt='Open or close the picker'/>
+        <img src={currImg()}
+             alt='Open or close the picker'
+             className={(props.hasErrors ? 'has-error' : '')}
+        />
         Choose an image
       </div>
       <div className={panelClass}>
@@ -85,6 +88,7 @@ export function IconPicker(props: IconPickerProps) {
 interface IconPickerProps {
   fieldName: string
   imageIndex: string
+  hasErrors: boolean
   baseUrl?: string
   defaultImage?: string
   onOpenPicker?: () => void

@@ -29,6 +29,10 @@ Form {
           background: #45494a;
           border: 1px solid #646464;
           color: #abb1b6;
+
+          &.has-error {
+            border: 2px solid #8b0000;
+          }
         }
       }
     }
