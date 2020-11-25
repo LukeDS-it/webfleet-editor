@@ -6,21 +6,22 @@ import {DomainForm} from 'types/DomainForm';
 import './DomainsModal.scss';
 import {IconPicker} from 'components/ui/icon-picker/IconPicker';
 import {bucketName} from 'utils/firebase';
+import {FormikHelpers} from 'formik/dist/types';
 
 export function DomainsModal(props: DomainsModalProps) {
 
   const [rightVisible, setRightVisible] = useState<boolean>(true);
-  const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/' + bucketName + '/o/default-resources%2Ficons%2F{file}?alt=media'
+  const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/' + bucketName + '/o/default-resources%2Ficons%2F{file}?alt=media';
   const iconsIndex = baseUrl.replace('{file}', 'index.json');
 
-  const handleOnSubmit = (values, actions) => {
+  const handleOnSubmit = (values: DomainForm, actions: FormikHelpers<DomainForm>) => {
     props.onSave(values);
     actions.setSubmitting(false);
-    actions.resetForm(new DomainForm());
+    actions.resetForm();
   };
 
   return (
-    <Formik onSubmit={handleOnSubmit} initialValues={new DomainForm()}>
+    <Formik onSubmit={handleOnSubmit} initialValues={DomainForm.emptyForm()}>
       {(p) => (
         <Modal title={'Create a new site'}
                open={props.modalOpen}
@@ -43,8 +44,9 @@ export function DomainsModal(props: DomainsModalProps) {
               <Field name='title'>
                 {({field, meta}) => (
                   <div>
-                    <label htmlFor='title'>Choose the title of your website. You can change
-                      this later.</label>
+                    <label htmlFor='title'>
+                      Choose the title of your website. You can change this later.
+                    </label>
                     <input type='text' {...field} placeholder='Your website name'/>
                     {meta.touched && meta.error && meta.error}
                   </div>
