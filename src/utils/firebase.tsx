@@ -2,15 +2,17 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
-  authDomain: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  databaseURL: `https://${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseio.com`,
-  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`,
-  storageBucket: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.appspot.com`,
-  messagingSenderId: `${process.env.REACT_APP_FIREBASE_SENDER_ID}`,
-  appId: `${process.env.REACT_APP_FIREBASE_APP_ID}`
-};
+interface FirebaseConfig {
+  apiKey: string,
+  authDomain: string,
+  databaseURL: string,
+  projectId: string,
+  storageBucket: string,
+  messagingSenderId: string,
+  appId: string
+}
+
+const firebaseConfig = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG) as FirebaseConfig;
 
 firebase.initializeApp(firebaseConfig)
 
