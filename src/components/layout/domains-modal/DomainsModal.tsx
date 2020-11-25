@@ -33,7 +33,7 @@ export function DomainsModal(props: DomainsModalProps) {
           <Form>
             <div className='left'>
               <IconPicker
-                onImageSelect={(img) => p.setFieldValue('icon', img)}
+                fieldName={'icon'}
                 imageIndex={iconsIndex}
                 baseUrl={baseUrl}
                 onOpenPicker={() => setRightVisible(false)}
