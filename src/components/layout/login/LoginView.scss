@@ -1,3 +1,5 @@
+@import "src/style-guide/variables";
+
 .login-screen {
 
   display: flex;
@@ -7,7 +9,7 @@
   width: 100%;
 
   h1 {
-    font-family: 'Lobster Two', cursive;
+    font-family: $font-primary, $font-primary-style;
     font-size: 40px;
     margin-top: 50px;
   }

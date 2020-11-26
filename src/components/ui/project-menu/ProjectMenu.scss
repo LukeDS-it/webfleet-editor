@@ -8,17 +8,25 @@
   width: 100%;
 
   .app-title {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-bottom: 1px solid $primary;
     display: flex;
     align-items: center;
     padding: 10px 0;
+    font-family: $font-primary;
+    font-size: 1.8em;
+    color: $white;
 
     img {
-      width: 50px;
+      width: 40px;
       margin-left: 20px;
-      margin-right: 20px;
+      margin-right: 10px;
     }
+  }
+
+  .back-button {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $primary;
   }
 
   .menu-item {
@@ -43,6 +51,7 @@
 
     &:hover {
       background: lighten($dark-blue, 20%);
+      cursor: pointer;
     }
   }
 }

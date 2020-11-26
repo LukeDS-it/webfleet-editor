@@ -54,7 +54,7 @@ export function DomainsViewer() {
         onSave={handleDomainCreation}
         mode={modalType}/>
       <p className={'welcome'}>
-        Welcome to Webfleet {currentUser.displayName}! Here are your websites:
+        Welcome to Webfleet, {currentUser.displayName}!
       </p>
       <ul className={'domain-list'}>
         <DomainTile key={'add-new'}
