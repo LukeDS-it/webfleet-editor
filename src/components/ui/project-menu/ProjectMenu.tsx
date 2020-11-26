@@ -8,15 +8,22 @@ import configuration from 'assets/configuration.png';
 import resources from 'assets/resources.png';
 import siteIcon from 'assets/icon.png';
 import back from 'assets/back.png';
+import {useHistory} from 'react-router';
 
 export function ProjectMenu(props: ProjectMenuProps) {
+
+  const history = useHistory();
+
+  const backToProjects = () => {
+    history.push('/');
+  };
 
   return <div className={'menu-container'}>
     <div className={'app-title'}>
       <img src={siteIcon} alt={'Go back to your sites'}/>
       Webfleet
     </div>
-    <div className={'back-button'}>
+    <div className={'back-button'} onClick={backToProjects}>
       <MenuItem selected={false} icon={back}>
         Back to your projects
       </MenuItem>

@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, {MouseEventHandler, ReactNode} from 'react';
 
 export function MenuItem(props: MenuItemProps) {
 
@@ -8,7 +8,7 @@ export function MenuItem(props: MenuItemProps) {
 
   const icon = props.icon ? <img src={props.icon} className={'menu-item-icon'} alt={''}/> : '';
 
-  return <div className={cssClass}>
+  return <div className={cssClass} onClick={props.onClick}>
     <div>
       {icon}
       {props.children}
@@ -21,4 +21,5 @@ interface MenuItemProps {
   icon?: string
   children?: ReactNode
   addClass?: string
+  onClick?: MouseEventHandler
 }
