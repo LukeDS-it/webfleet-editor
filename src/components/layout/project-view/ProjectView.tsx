@@ -4,14 +4,15 @@ import history from 'utils/history';
 import PrivateRoute from 'components/ui/PrivateRoute';
 import {DomainDashboard} from 'components/layout/domain-dashboard/DomainDashboard';
 import './ProjectView.scss';
+import {ProjectMenu} from 'components/ui/project-menu/ProjectMenu';
 
 export function ProjectView() {
 
   const {feature} = useParams<ProjectViewProps>();
 
   return <div className={'main-control-panel'}>
-    <div className={'lateralMenu'}>
-      This is the menu, selected feature is {feature}
+    <div className={'lateral-menu'}>
+      <ProjectMenu selectedFeature={feature} />
     </div>
     <div className={'working-area'}>
       <Router history={history}>
