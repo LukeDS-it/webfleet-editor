@@ -35,7 +35,7 @@ export function Modal(props: ModalProps) {
     }
   }
 
-  const submit = (props.onSubmit) ? <button type='submit' className={'submit'}
+  const submit = (props.onSubmit) ? <button type='submit' className={'primary'}
                                             onClick={handleSubmit}>{props.submitText ? props.submitText : 'Submit'}</button> : '';
   const cancel = (props.onCancel) ? <button type='reset' className={'cancel'}
                                             onClick={handleCancel}>{props.cancelText ? props.cancelText : 'Cancel'}</button> : '';

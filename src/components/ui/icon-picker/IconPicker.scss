@@ -1,3 +1,5 @@
+@import "src/style-guide/variables";
+
 .icon-picker {
   display: flex;
   align-items: center;
@@ -14,7 +16,7 @@
     img {
       width: 100px;
       height: 100px;
-      border: 1px solid #abb1b6;
+      border: 1px solid $input-border;
       padding: 5px;
       margin-bottom: 5px;
 
@@ -23,7 +25,7 @@
       }
 
       &.has-error {
-        border: 2px solid #8b0000;
+        border: 2px solid $danger;
       }
     }
   }

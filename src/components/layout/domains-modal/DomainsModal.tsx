@@ -82,7 +82,7 @@ export function DomainsModal(props: DomainsModalProps) {
             </div>
             <div className={'modal-footer'}>
               <button type={'submit'}
-                      className={'submit'}>{props.mode === 'create' ? 'Create site' : 'Update site'}</button>
+                      className={'primary'}>{props.mode === 'create' ? 'Create site' : 'Update site'}</button>
               <button type={'reset'}>Cancel</button>
             </div>
           </Form>

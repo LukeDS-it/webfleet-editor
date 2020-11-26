@@ -1,3 +1,5 @@
+@import "src/style-guide/variables";
+
 .domain-screen {
   display: flex;
   flex-direction: column;
@@ -20,7 +22,7 @@
     margin-top: 50px;
 
     li {
-      border: 1px solid #3c434f;
+      border: 1px solid $input-base;
       border-radius: 10px;
       list-style: none;
       margin: 15px;
@@ -30,7 +32,7 @@
 
       &:hover {
         cursor: pointer;
-        background: #3c434f;
+        background: darken($input-base, 10%);
       }
 
       div {
