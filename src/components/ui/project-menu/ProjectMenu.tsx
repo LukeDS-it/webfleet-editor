@@ -7,6 +7,7 @@ import blog from 'assets/blog.png';
 import configuration from 'assets/configuration.png';
 import resources from 'assets/resources.png';
 import siteIcon from 'assets/icon.png';
+import share from 'assets/share.png';
 import back from 'assets/back.png';
 import {useHistory} from 'react-router';
 
@@ -67,6 +68,13 @@ export function ProjectMenu(props: ProjectMenuProps) {
       onClick={() => navigateToFeature('resources')}
     >
       Resources
+    </MenuItem>
+    <MenuItem
+      selected={props.selectedFeature === 'access-list'}
+      icon={share}
+      onClick={() => navigateToFeature('access-list')}
+    >
+      Sharing options
     </MenuItem>
   </div>;
 
