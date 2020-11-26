@@ -1,11 +1,12 @@
 import React from 'react';
-import {Route, Router, Switch} from 'react-router-dom';
+import {Redirect, Route, Router, Switch} from 'react-router-dom';
 import {DomainsViewer} from 'components/layout/domains-viewer/DomainsViewer';
 import history from './utils/history';
 import {AuthProvider} from 'utils/Auth';
 import PrivateRoute from 'components/ui/PrivateRoute';
 import {LoginView} from 'components/layout/login/LoginView';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
+import {DomainDashboard} from 'components/layout/domain-dashboard/DomainDashboard';
 
 const App = () => {
 
@@ -13,9 +14,11 @@ const App = () => {
     <AuthProvider>
       <Router history={history}>
         <Switch>
-          <PrivateRoute path='/' exact component={DomainsViewer}/>
           <Route path='/login' exact component={LoginView}/>
           <Route path='/loading' exact component={LoadingScreen} />
+          <PrivateRoute path='/' exact component={DomainsViewer}/>
+          <PrivateRoute path='/:siteId/dashboard' exact component={DomainDashboard}/>
+          <PrivateRoute path='/:siteId' exact component={DomainDashboard}/>
         </Switch>
       </Router>
     </AuthProvider>
