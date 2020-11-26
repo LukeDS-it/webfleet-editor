@@ -5,23 +5,31 @@ import PrivateRoute from 'components/ui/PrivateRoute';
 import {DomainDashboard} from 'components/layout/domain-dashboard/DomainDashboard';
 import './ProjectView.scss';
 import {ProjectMenu} from 'components/ui/project-menu/ProjectMenu';
+import {DomainPages} from 'components/layout/domain-pages/DomainPages';
+import {DomainBlog} from 'components/layout/domain-blog/DomainBlog';
+import {DomainConfiguration} from 'components/layout/domain-configuration/DomainConfiguration';
+import {DomainResources} from 'components/layout/domain-resources/DomainResources';
 
 export function ProjectView() {
 
-  const {feature} = useParams<ProjectViewProps>();
+  const {domainId, feature} = useParams<ProjectViewProps>();
 
   return <div className={'main-control-panel'}>
     <div className={'lateral-menu'}>
-      <ProjectMenu selectedFeature={feature} />
+      <ProjectMenu selectedFeature={feature} domainId={domainId}/>
     </div>
     <div className={'working-area'}>
       <Router history={history}>
         <Switch>
           <PrivateRoute path='/projects/:domainId/dashboard' component={DomainDashboard}/>
+          <PrivateRoute path='/projects/:domainId/contents' component={DomainPages}/>
+          <PrivateRoute path='/projects/:domainId/blog' component={DomainBlog}/>
+          <PrivateRoute path='/projects/:domainId/configuration' component={DomainConfiguration}/>
+          <PrivateRoute path='/projects/:domainId/resources' component={DomainResources}/>
         </Switch>
       </Router>
     </div>
-  </div>
+  </div>;
 
 }
 
