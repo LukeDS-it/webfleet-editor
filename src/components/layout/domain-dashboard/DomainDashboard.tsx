@@ -1,17 +1,14 @@
 import React from 'react';
 import {useParams} from 'react-router';
+import {ProjectViewProps} from 'components/layout/project-view/ProjectView';
 
 
 export function DomainDashboard() {
 
-  const {siteId} = useParams<DomainDashboardParams>();
+  const {domainId} = useParams<ProjectViewProps>();
 
-  return <div>
-    This is the site {siteId}
+  return <div className={'site-dashboard'}>
+    This is the site {domainId}
   </div>
 
-}
-
-interface DomainDashboardParams {
-  siteId: string
 }

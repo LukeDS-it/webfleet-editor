@@ -20,7 +20,7 @@ export function DomainsViewer() {
   const {push} = useHistory();
 
   function navigateTo(id: string) {
-    push(id + '/dashboard');
+    push('projects/' + id + '/dashboard');
   }
 
   const {data, error} = useSWR('/domains', findAll);
