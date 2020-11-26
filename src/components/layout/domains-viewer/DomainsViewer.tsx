@@ -55,7 +55,6 @@ export function DomainsViewer() {
         Welcome to Webfleet {currentUser.displayName}! Here are your websites:
       </p>
       <ul className={'domain-list'}>
-        {domainTiles}
         <DomainTile key={'add-new'}
                     icon={addWebsite}
                     title={'Create new site'}
@@ -64,6 +63,7 @@ export function DomainsViewer() {
                       setModalType('create');
                     }}
         />
+        {domainTiles}
       </ul>
     </div>
   );
