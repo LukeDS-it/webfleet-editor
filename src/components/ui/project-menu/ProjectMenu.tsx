@@ -41,9 +41,9 @@ export function ProjectMenu(props: ProjectMenuProps) {
       Dashboard
     </MenuItem>
     <MenuItem
-      selected={props.selectedFeature === 'contents'}
+      selected={props.selectedFeature === 'pages'}
       icon={pages}
-      onClick={() => navigateToFeature('contents')}
+      onClick={() => navigateToFeature('pages')}
     >
       Pages
     </MenuItem>

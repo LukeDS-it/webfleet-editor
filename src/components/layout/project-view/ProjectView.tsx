@@ -22,7 +22,7 @@ export function ProjectView() {
       <Router history={history}>
         <Switch>
           <PrivateRoute path='/projects/:domainId/dashboard' component={DomainDashboard}/>
-          <PrivateRoute path='/projects/:domainId/contents' component={DomainPages}/>
+          <PrivateRoute path='/projects/:domainId/pages' component={DomainPages}/>
           <PrivateRoute path='/projects/:domainId/blog' component={DomainBlog}/>
           <PrivateRoute path='/projects/:domainId/configuration' component={DomainConfiguration}/>
           <PrivateRoute path='/projects/:domainId/resources' component={DomainResources}/>
