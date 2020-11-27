@@ -10,15 +10,17 @@ import {AuthContext} from 'utils/Auth';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 import {DomainForm} from 'types/DomainForm';
 import {mutate} from 'swr';
+import {useHistory} from 'react-router';
 
 
 export function DomainsViewer() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
   const {currentUser} = useContext(AuthContext);
+  const {push} = useHistory();
 
   function navigateTo(id: string) {
-    alert(`Navigate to ${id}`);
+    push('projects/' + id + '/dashboard');
   }
 
   const {data, error} = useSWR('/domains', findAll);
@@ -52,7 +54,7 @@ export function DomainsViewer() {
         onSave={handleDomainCreation}
         mode={modalType}/>
       <p className={'welcome'}>
-        Welcome to Webfleet {currentUser.displayName}! Here are your websites:
+        Welcome to Webfleet, {currentUser.displayName}!
       </p>
       <ul className={'domain-list'}>
         <DomainTile key={'add-new'}

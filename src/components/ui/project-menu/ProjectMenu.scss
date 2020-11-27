@@ -1,0 +1,57 @@
+@import "src/style-guide/variables";
+
+.menu-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $dark-blue;
+  width: 100%;
+
+  .app-title {
+    margin-bottom: 10px;
+    border-bottom: 1px solid $primary;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-family: $font-primary;
+    font-size: 1.8em;
+    color: $white;
+
+    img {
+      width: 40px;
+      margin-left: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  .back-button {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $primary;
+  }
+
+  .menu-item {
+    width: 100%;
+
+    &.selected {
+      background: lighten($dark-blue, 10%);
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      padding: 5px 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .menu-item-icon {
+      width: 24px;
+      margin-right: 5px;
+    }
+
+    &:hover {
+      background: lighten($dark-blue, 20%);
+      cursor: pointer;
+    }
+  }
+}
