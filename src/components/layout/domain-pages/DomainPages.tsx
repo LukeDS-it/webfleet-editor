@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import {getContent} from 'api/pagesApi';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 import {useNavigate} from 'react-router-dom';
+import {ExplorerBar} from 'components/layout/domain-pages/ExplorerBar';
 
 export function DomainPages() {
   const {domainId, pageId = '/'} = useParams();
@@ -28,6 +29,7 @@ export function DomainPages() {
 
 
   return <div className={'site-dashboard'}>
+    <ExplorerBar currentPath={pageId} domain={domainId} />
     <h1>{data.title}</h1>
     <p>{data.text}</p>
     {children}

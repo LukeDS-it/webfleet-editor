@@ -1,0 +1,27 @@
+@import "variables";
+
+@mixin base-button {
+  cursor: pointer;
+  background: $input-base;
+  border: 1px solid $input-border;
+  color: $light;
+
+  &.primary {
+    background: $primary;
+    border: 1px solid lighten($primary, 10%);
+  }
+
+  &.success {
+    background: $success;
+    border: 1px solid darken($success, 10%);
+  }
+
+  &.disabled {
+    background: $disabled;
+    color: $secondary;
+  }
+
+  &:hover {
+    background: lighten($input-base, 5%);
+  }
+}

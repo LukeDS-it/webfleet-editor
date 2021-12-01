@@ -1,4 +1,5 @@
 @import "src/style-guide/variables";
+@import "src/style-guide/components";
 
 .login-screen {
 
@@ -15,6 +16,9 @@
   }
 
   button {
+    @include base-button;
+    height: 40px;
+    margin-left: 20px;
     border: thin solid black;
     padding: 5px;
     width: 30%;

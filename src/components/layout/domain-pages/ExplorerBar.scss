@@ -1,0 +1,57 @@
+@import "src/style-guide/variables";
+@import "src/style-guide/components";
+
+$btnSize: 30px;
+
+.breadcrumbs {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    display: inline;
+    padding-left: 5px;
+
+    button {
+      color: $info;
+      font-size: 1.2em;
+      border: none;
+      background: transparent;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    &:not(:first-of-type) {
+      &:before {
+        font-weight: bold;
+        color: $white;
+        content: ">";
+        padding-right: 5px;
+        cursor: auto;
+      }
+    }
+  }
+}
+
+.exploreBar {
+  display: flex;
+  align-items: center;
+  background: $gray-dark;
+  margin-top: 20px;
+  margin-right: 20px;
+
+  .navBtns {
+    display: flex;
+    margin-left: 10px;
+    .navButton {
+      @include base-button;
+      margin-right: 5px;
+      padding: 3px;
+      height: $btnSize;
+      img {
+        width: $btnSize;
+      }
+    }
+  }
+}
