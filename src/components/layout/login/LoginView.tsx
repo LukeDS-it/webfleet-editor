@@ -1,13 +1,12 @@
 import React, {useContext} from 'react';
 import firebase from 'firebase';
 import {auth} from 'utils/firebase';
-import {Redirect, useHistory} from 'react-router';
 import {AuthContext} from 'utils/Auth';
-import './LoginView.scss'
+import './LoginView.scss';
 import GLogo from 'assets/g-logo.png';
+import {Navigate} from 'react-router';
 
 export function LoginView() {
-  const history = useHistory();
   const {currentUser} = useContext(AuthContext);
 
   function handleGoogleLogin() {
@@ -15,12 +14,11 @@ export function LoginView() {
     auth.signInWithPopup(google)
       .then((result) => {
         console.log(result);
-        history.push('/');
       });
   }
 
   return currentUser
-    ? <Redirect to={'/'}/>
+    ? <Navigate to={'/'}/>
     : <div className={'login-screen'}>
       <h1>Welcome to Webfleet!</h1>
       <p>

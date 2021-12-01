@@ -10,17 +10,17 @@ import {AuthContext} from 'utils/Auth';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
 import {DomainForm} from 'types/DomainForm';
 import {mutate} from 'swr';
-import {useHistory} from 'react-router';
+import {useNavigate} from 'react-router';
 
 
 export function DomainsViewer() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState<FormMode>('create');
   const {currentUser} = useContext(AuthContext);
-  const {push} = useHistory();
+  const navigate = useNavigate();
 
   function navigateTo(id: string) {
-    push('projects/' + id + '/dashboard');
+    navigate('projects/' + id + '/dashboard');
   }
 
   const {data, error} = useSWR('/domains', findAll);

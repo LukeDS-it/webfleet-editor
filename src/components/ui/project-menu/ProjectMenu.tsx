@@ -9,18 +9,18 @@ import resources from 'assets/resources.png';
 import siteIcon from 'assets/icon.png';
 import share from 'assets/share.png';
 import back from 'assets/back.png';
-import {useHistory} from 'react-router';
+import {useNavigate} from 'react-router-dom';
 
 export function ProjectMenu(props: ProjectMenuProps) {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function backToProjects() {
-    history.push('/');
+    navigate('/');
   }
 
   function navigateToFeature(feature: String) {
-    history.push('/projects/' + props.domainId + '/' + feature);
+    navigate('/projects/' + props.domainId + '/' + feature);
   }
 
   return <div className={'menu-container'}>

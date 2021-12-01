@@ -1,16 +1,9 @@
-import React, {useContext} from 'react';
-import {Redirect, Route, RouteProps} from 'react-router-dom';
+import {useContext} from 'react';
 import {AuthContext} from 'utils/Auth';
+import {Navigate, Outlet} from 'react-router-dom';
 
-interface PrivateRouteProps extends RouteProps {
-  component: React.ComponentType;
-}
-
-export default function PrivateRoute({component: Component, path, ...rest}: PrivateRouteProps) {
+export default function PrivateRoute() {
   const {currentUser} = useContext(AuthContext);
 
-  const render = (props: RouteProps) =>
-    !!currentUser ? <Component {...props} /> : <Redirect to={'/login'}/>
-
-  return <Route path={path} render={render} {...rest} />;
+  return !!currentUser ? <Outlet/> : <Navigate to={'/login'}/>;
 }
