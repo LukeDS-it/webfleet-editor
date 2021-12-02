@@ -3,36 +3,36 @@ import {useParams} from 'react-router';
 import useSWR from 'swr';
 import {getContent} from 'api/pagesApi';
 import {LoadingScreen} from 'components/ui/loading-screen/LoadingScreen';
-import {useNavigate} from 'react-router-dom';
 import {ExplorerBar} from 'components/layout/domain-pages/ExplorerBar';
+import {ChildrenView} from 'components/layout/domain-pages/ChildrenView';
 
 export function DomainPages() {
   const {domainId, pageId = '/'} = useParams();
-  const navigate = useNavigate();
 
   const {data, error} = useSWR(`/pages/${pageId}`, () => getContent(domainId, pageId));
 
-  if (!data) {
-    return <LoadingScreen/>;
-  }
+  let content = <LoadingScreen/>;
 
   if (error) {
-    return <div>Failed to load: {error}</div>;
+    content = <div>Failed to load: {error}</div>;
   }
 
-  let children = <div/>;
-  if (data.type === 'Folder') {
-    const list = data.children.map((c) => <li
-      onClick={() => navigate(`/projects/${domainId}/pages/${c.path.substring(1).replace('/', '~')}`)}>{c.title}</li>);
-    children = <ul>{list}</ul>;
-  }
+  if (data) {
+    let children =
+      data.type === 'Folder'
+        ? <ChildrenView domainId={domainId} children={data.children}/>
+        : <div/>;
 
+    content = <div>
+      <h1>{data.title}</h1>
+      <p>{data.text}</p>
+      {children}
+    </div>;
+  }
 
   return <div className={'site-dashboard'}>
-    <ExplorerBar currentPath={pageId} domain={domainId} />
-    <h1>{data.title}</h1>
-    <p>{data.text}</p>
-    {children}
+    <ExplorerBar currentPath={pageId} domain={domainId}/>
+    {content}
   </div>;
 
 }

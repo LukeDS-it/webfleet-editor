@@ -44,7 +44,7 @@ export function ExplorerBar(params: ExplorerBarParams) {
     </div>
 
     <ul className={'breadcrumbs'}>
-      {breadcrumb(`/projects/${params.domain}/pages/`, `🏠`)}
+      {breadcrumb(`/projects/${params.domain}/pages/`, params.domain)}
       {breadcrumbs}
     </ul>
   </div>;

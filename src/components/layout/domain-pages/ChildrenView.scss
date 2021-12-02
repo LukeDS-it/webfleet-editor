@@ -1,0 +1,27 @@
+@import "src/style-guide/variables";
+
+.childContent {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 5px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    background: $secondary;
+    padding: 5px;
+    margin-right: 20px;
+    color: $white;
+    &:hover {
+      cursor: pointer;
+      background: $light;
+    }
+  }
+  img {
+    width: 30px;
+    margin-right: 8px;
+  }
+}
