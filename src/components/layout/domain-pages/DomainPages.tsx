@@ -19,7 +19,7 @@ export function DomainPages() {
 
   const debouncedHandleEditorChange = useMemo(
     () => debounce(handleEditorChange, 300),
-    [domainId, data]
+    [domainId, data, handleEditorChange]
   );
 
   useEffect(() => {
