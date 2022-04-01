@@ -15,11 +15,9 @@ export function DomainPages() {
 
   const {data, error} = useSWR(`/pages/${pageId}`, () => getContent(domainId, pageId));
 
-  const handleEditorChange = (fn: () => string) => saveContentText(domainId, data.id, fn());
-
   const debouncedHandleEditorChange = useMemo(
-    () => debounce(handleEditorChange, 300),
-    [domainId, data, handleEditorChange]
+    () => debounce((fn: () => string) => saveContentText(domainId, data.id, fn()), 300),
+    [domainId, data]
   );
 
   useEffect(() => {
