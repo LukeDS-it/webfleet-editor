@@ -13,7 +13,7 @@ export function ChildrenView(params: ChildrenViewParams) {
   }
 
   function toChild(c: Content) {
-    return <li onClick={() => navigate(getPath(params.domainId, c.path))}>
+    return <li onClick={() => navigate(getPath(params.domainId, c.path))} key={c.path}>
       <span>
         {getImage(c.type)}
         {c.title}

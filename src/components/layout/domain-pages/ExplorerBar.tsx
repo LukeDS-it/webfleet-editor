@@ -17,7 +17,7 @@ export function ExplorerBar(params: ExplorerBarParams) {
     .map((s, idx) => breadcrumb(`/projects/${params.domain}/pages/${buildPath(idx)}`, s));
 
   function breadcrumb(path: string, text: string) {
-    return <li>
+    return <li key={path}>
       <button onClick={() => navigate(path)}>{text}</button>
     </li>;
   }

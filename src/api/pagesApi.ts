@@ -29,6 +29,14 @@ export const getContent = (domain: string, path: string = '/') => {
     });
 }
 
+export const saveContentText = (domain: string, docId: string, newText: string) => {
+  return contentsFor(domain)
+    .doc(docId)
+    .update({
+      text: newText
+    })
+}
+
 const toContentReduced = (documentData: firebase.firestore.QueryDocumentSnapshot) => {
   return new Content(documentData.id, documentData.get('title'), documentData.get('type'), documentData.get('path'));
 };
